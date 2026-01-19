@@ -1,67 +1,67 @@
-# PayMe - Payment Tracker PWA
+# PayMe - Трекер платежей PWA
 
-A Progressive Web App for tracking receipt payments using Vite and Supabase.
+Прогрессивное веб-приложение для отслеживания квитанций об оплате с использованием Vite и Supabase.
 
-## Features
+## Особенности
 
-- Anonymous authentication using localStorage
-- Track payment receipts with address, type, bank, and month
-- Upload receipt files (PDF/images)
-- Auto-save last used values
-- Custom addresses, payment types, and banks
-- Mobile-friendly interface
-- Works offline (PWA capabilities)
+- Анонимная аутентификация с использованием localStorage
+- Отслеживание квитанций об оплате с адресом, типом, банком и месяцем
+- Загрузка файлов квитанций (PDF/изображения)
+- Автосохранение последних используемых значений
+- Пользовательские адреса, типы платежей и банки
+- Интерфейс, оптимизированный для мобильных устройств
+- Работа в автономном режиме (возможности PWA)
 
-## Installation Script
+## Установочный скрипт
 
 ```bash
 #!/bin/bash
 
-# Clone the repository
+# Клонировать репозиторий
 git clone https://github.com/yourusername/PayMe.git
 cd PayMe
 
-# Install dependencies
+# Установить зависимости
 npm install
 
-# Create .env file with placeholder values
+# Создать файл .env с заполнителями значений
 echo "VITE_SUPABASE_URL=your_supabase_url" > .env
 echo "VITE_SUPABASE_ANON_KEY=your_supabase_anon_key" >> .env
 
-echo "Setup complete! Don't forget to replace the placeholder values in .env with your actual Supabase credentials."
-echo "To run the development server, use: npm run dev"
+echo "Установка завершена! Не забудьте заменить значения-заполнители в .env на свои действительные учетные данные Supabase."
+echo "Чтобы запустить сервер разработки, используйте: npm run dev"
 ```
 
-## Manual Setup
+## Ручная установка
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Create a `.env` file with your Supabase credentials:
+1. Клонировать репозиторий
+2. Установить зависимости: `npm install`
+3. Создать файл `.env` с вашими учетными данными Supabase:
    ```
    VITE_SUPABASE_URL=your_supabase_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
-4. Run the development server: `npm run dev`
-5. Build for production: `npm run build`
+4. Запустить сервер разработки: `npm run dev`
+5. Собрать для продакшена: `npm run build`
 
-## Supabase Schema
+## Схема Supabase
 
-Create these tables in your Supabase database:
+Создайте эти таблицы в вашей базе данных Supabase:
 
 ```sql
--- Payments table
+-- Таблица платежей
 CREATE TABLE payments (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id TEXT NOT NULL,
   address TEXT NOT NULL,
   payment_type TEXT NOT NULL,
   bank TEXT NOT NULL,
-  month_year TEXT NOT NULL, -- Format: YYYY-MM
+  month_year TEXT NOT NULL, -- Формат: YYYY-MM
   file_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- User metadata table
+-- Таблица метаданных пользователя
 CREATE TABLE user_meta (
   user_id TEXT PRIMARY KEY,
   last_address TEXT,
@@ -73,8 +73,8 @@ CREATE TABLE user_meta (
 );
 ```
 
-## Deployment to GitHub Pages
+## Деплой на GitHub Pages
 
-1. Build the project: `npm run build`
-2. The build output will be in the `dist/` folder
-3. Deploy the `dist/` folder to your GitHub Pages branch under the `/PayMe/` subdirectory
+1. Собрать проект: `npm run build`
+2. Результат сборки будет находиться в папке `dist/`
+3. Разместите папку `dist/` в ветке GitHub Pages под подкаталогом `/PayMe/`
