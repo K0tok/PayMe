@@ -307,3 +307,71 @@ function showMessage(message, type) {
 
 // Initialize the app
 loadUserData();
+
+// Page navigation functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const homeSection = document.getElementById('home-section');
+  const historySection = document.getElementById('history-section');
+  const paymentHistoryRoot = document.getElementById('payment-history-root');
+
+  // Function to show/hide sections and update active nav link
+  function showPage(pageName) {
+    // Hide all sections
+    homeSection.style.display = 'none';
+    historySection.style.display = 'none';
+    
+    // Remove active class from all links
+    navLinks.forEach(link => link.classList.remove('active'));
+    
+    // Show selected section and highlight nav link
+    if (pageName === 'home') {
+      homeSection.style.display = 'block';
+      document.querySelector('[data-page="home"]').classList.add('active');
+    } else if (pageName === 'history') {
+      historySection.style.display = 'block';
+      document.querySelector('[data-page="history"]').classList.add('active');
+      
+      // Render PaymentHistory component
+      renderPaymentHistory();
+    }
+  }
+
+  // Add click event listeners to nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const pageName = link.getAttribute('data-page');
+      showPage(pageName);
+    });
+  });
+
+  // Initial page setup - show home by default
+  showPage('home');
+});
+
+// Function to render PaymentHistory component
+async function renderPaymentHistory() {
+  const paymentHistoryRoot = document.getElementById('payment-history-root');
+  
+  // Clear existing content
+  paymentHistoryRoot.innerHTML = '';
+  
+  // Create a container for the component to mount to
+  const historyContainer = document.createElement('div');
+  historyContainer.id = 'payment-history-container';
+  paymentHistoryRoot.appendChild(historyContainer);
+  
+  // Dynamically import and initialize the PaymentHistory component
+  try {
+    const PaymentHistoryModule = await import('./components/PaymentHistory.jsx');
+    const PaymentHistoryClass = PaymentHistoryModule.default;
+    
+    // Create an instance of the PaymentHistory class and initialize it
+    const paymentHistory = new PaymentHistory('payment-history-container');
+    await paymentHistory.init();
+  } catch (error) {
+    console.error('Error loading PaymentHistory component:', error);
+    paymentHistoryRoot.innerHTML = '<p>Error loading payment history</p>';
+  }
+}
