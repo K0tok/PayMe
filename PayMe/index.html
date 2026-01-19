@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayMe - Payment Tracker</title>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1>Payment Tracker</h1>
+      <form id="payment-form">
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <select id="address" name="address">
+            <option value="">Select address</option>
+          </select>
+          <button type="button" id="add-address-btn">+ Add Address</button>
+          <input type="text" id="new-address-input" placeholder="Enter new address" style="display:none;">
+        </div>
+        
+        <div class="form-group">
+          <label for="payment-type">Payment Type:</label>
+          <select id="payment-type" name="payment-type">
+            <option value="">Select type</option>
+            <option value="Газ">Газ</option>
+            <option value="Мусор">Мусор</option>
+            <option value="Коммуналка — РЦ Урала">Коммуналка — РЦ Урала</option>
+            <option value="Коммуналка — Универсал">Коммуналка — Универсал</option>
+          </select>
+          <button type="button" id="add-payment-type-btn">+ Add Type</button>
+          <input type="text" id="new-payment-type-input" placeholder="Enter new type" style="display:none;">
+        </div>
+        
+        <div class="form-group">
+          <label for="bank">Bank:</label>
+          <select id="bank" name="bank">
+            <option value="">Select bank</option>
+            <option value="Альфа">Альфа</option>
+            <option value="Сбер">Сбер</option>
+            <option value="Тинькофф">Тинькофф</option>
+            <option value="Озон">Озон</option>
+          </select>
+          <button type="button" id="add-bank-btn">+ Add Bank</button>
+          <input type="text" id="new-bank-input" placeholder="Enter new bank" style="display:none;">
+        </div>
+        
+        <div class="form-group">
+          <label for="month-year">Month:</label>
+          <input type="month" id="month-year" name="month-year">
+        </div>
+        
+        <div class="form-group">
+          <label for="receipt-file">Receipt File (PDF/Image):</label>
+          <input type="file" id="receipt-file" name="receipt-file" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+        
+        <button type="submit">Submit Payment</button>
+      </form>
+      
+      <div id="status-message" class="status-message"></div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</body>
+</html>
