@@ -1,13 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
+// Конфигурация Supabase
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase URL or Anon Key');
+  console.error('Необходимо указать VITE_SUPABASE_URL и VITE_SUPABASE_ANON_KEY в переменных окружения');
 }
 
-const supabase = supabaseUrl && supabaseAnonKey ?
-  createClient(supabaseUrl, supabaseAnonKey) : null;
-
-export { supabase };
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);

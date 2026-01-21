@@ -1,20 +1,20 @@
 {
-  "name": "PayMe - Payment Tracker",
+  "name": "PayMe — трекер платежей за квартиру",
   "short_name": "PayMe",
-  "description": "Track your receipt payments easily",
-  "start_url": "/",
+  "description": "Мобильное веб-приложение для учёта оплаты квитанций",
+  "start_url": "/PayMe/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#3498db",
+  "theme_color": "#4CAF50",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/PayMe/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/PayMe/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
